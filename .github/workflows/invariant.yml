@@ -13,4 +13,5 @@ jobs:
           python-version: '3.11'
       - name: Run invariant tests
         run: |
-          python -m pytest tests/test_invariant.py -v || python tests/test_invariant.py
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python tests/test_invariant.py
