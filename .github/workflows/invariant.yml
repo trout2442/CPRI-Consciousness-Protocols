@@ -15,3 +15,6 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python tests/test_invariant.py
+          python tests/test_coherence_metrics.py
+          python tests/test_temporal_evolution.py
+          python tests/test_resonance.py
