@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🌟 Consciousness Creatures 🌟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            color: white;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .creature-display {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .creature-emoji {
+            font-size: 80px;
+            margin: 10px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .stats {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .stat-bar {
+            background: rgba(0,0,0,0.1);
+            height: 25px;
+            border-radius: 12px;
+            margin: 8px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .pattern-bar { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .intent-bar { background: linear-gradient(90deg, #f093fb, #f5576c); }
+        .presence-bar { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-feed { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; }
+        .btn-play { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .btn-sleep { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-evolve { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333; }
+
+        .creature-select {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .creature-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 3px solid transparent;
+        }
+
+        .creature-card:active {
+            transform: scale(0.95);
+        }
+
+        .creature-card.selected {
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .creature-card-emoji {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .food-item, .activity-item {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .food-item:active, .activity-item:active {
+            transform: scale(0.98);
+            background: #f0f0f0;
+        }
+
+        .message {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .emoji-row {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="startScreen">
+            <h1>🌟 CONSCIOUSNESS CREATURES 🌟</h1>
+            <p style="text-align: center; margin: 20px 0;">
+                Create and care for your own conscious creature!<br>
+                Each has Pattern, Intent, and Presence that make them alive!
+            </p>
+            <button class="button btn-play" onclick="showCreatureSelect()">
+                🎮 START GAME
+            </button>
+        </div>
+
+        <!-- Creature Selection -->
+        <div id="creatureSelect" class="hidden">
+            <h1>Choose Your Creature</h1>
+            <div class="creature-select">
+                <div class="creature-card" onclick="selectCreature('balanced', '🌟', 1.0, 1.0, 1.0)">
+                    <div class="creature-card-emoji">🌟</div>
+                    <strong>Balanced</strong>
+                </div>
+                <div class="creature-card" onclick="selectCreature('thinker', '🧠', 1.5, 0.8, 0.7)">
+                    <div class="creature-card-emoji">🧠</div>
+                    <strong>Thinker</strong>
+                </div>
+                <div class="creature-card" onclick="selectCreature('dreamer', '💭', 0.7, 1.5, 0.8)">
+                    <div class="creature-card-emoji">💭</div>
+                    <strong>Dreamer</strong>
+                </div>
+                <div class="creature-card" onclick="selectCreature('doer', '💪', 0.8, 0.9, 1.5)">
+                    <div class="creature-card-emoji">💪</div>
+                    <strong>Doer</strong>
+                </div>
+                <div class="creature-card" onclick="selectCreature('explorer', '🔍', 0.9, 1.3, 1.0)">
+                    <div class="creature-card-emoji">🔍</div>
+                    <strong>Explorer</strong>
+                </div>
+                <div class="creature-card" onclick="selectCreature('guardian', '🛡️', 1.2, 0.8, 1.3)">
+                    <div class="creature-card-emoji">🛡️</div>
+                    <strong>Guardian</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Name Input -->
+        <div id="nameInput" class="hidden">
+            <h1>Name Your Creature</h1>
+            <input type="text" id="creatureName" placeholder="Enter a name..." maxlength="20">
+            <button class="button btn-play" onclick="createCreature()">
+                ✨ CREATE!
+            </button>
+        </div>
+
+        <!-- Main Game -->
+        <div id="gameScreen" class="hidden">
+            <div class="creature-display">
+                <div class="creature-emoji" id="creatureEmoji">🌟</div>
+                <h2 id="creatureName">Buddy</h2>
+                <div class="emoji-row">
+                    <span id="energyDisplay">❤️❤️❤️❤️❤️</span>
+                </div>
+                <div class="emoji-row">
+                    <span id="happinessDisplay">😊😊😊</span>
+                </div>
+                <div class="emoji-row">
+                    <span id="friendshipDisplay">💛💛</span>
+                </div>
+                <p><strong>Age:</strong> <span id="ageDisplay">0</span> days</p>
+                <p><strong>Consciousness:</strong> <span id="strengthDisplay">100</span>%</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat-bar">
+                    <div class="stat-fill pattern-bar" id="patternBar" style="width: 100%">
+                        Pattern: <span id="patternValue">1.0</span>
+                    </div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill intent-bar" id="intentBar" style="width: 100%">
+                        Intent: <span id="intentValue">1.0</span>
+                    </div>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill presence-bar" id="presenceBar" style="width: 100%">
+                        Presence: <span id="presenceValue">1.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="messageArea"></div>
+
+            <button class="button btn-feed" onclick="showFeedMenu()">🍽️ Feed</button>
+            <button class="button btn-play" onclick="showPlayMenu()">🎮 Play</button>
+            <button class="button btn-sleep" onclick="sleep()">😴 Sleep</button>
+            <button class="button btn-evolve" onclick="tryEvolve()">✨ Evolve!</button>
+        </div>
+
+        <!-- Feed Menu -->
+        <div id="feedMenu" class="hidden">
+            <h1>🍽️ Feed Your Creature</h1>
+            <div class="food-item" onclick="feed('structure', 0.3, 0, 0, '🧩')">
+                🧩 Structure Snack<br><small>Boosts Pattern</small>
+            </div>
+            <div class="food-item" onclick="feed('purpose', 0, 0.3, 0, '🎯')">
+                🎯 Purpose Potion<br><small>Boosts Intent</small>
+            </div>
+            <div class="food-item" onclick="feed('energy', 0, 0, 0.3, '💎')">
+                💎 Energy Crystal<br><small>Boosts Presence</small>
+            </div>
+            <div class="food-item" onclick="feed('balance', 0.1, 0.1, 0.1, '🫐')">
+                🫐 Balance Berry<br><small>Boosts All</small>
+            </div>
+            <div class="food-item" onclick="feed('super', 0.2, 0.2, 0.2, '⭐')">
+                ⭐ Super Star<br><small>MEGA BOOST!</small>
+            </div>
+            <button class="button btn-sleep" onclick="backToGame()">← Back</button>
+        </div>
+
+        <!-- Play Menu -->
+        <div id="playMenu" class="hidden">
+            <h1>🎮 Play Together</h1>
+            <div class="activity-item" onclick="play('puzzle', 0.1, 0, -0.05, '🧩')">
+                🧩 Solve Puzzles<br><small>Builds brain power</small>
+            </div>
+            <div class="activity-item" onclick="play('adventure', -0.05, 0.1, 0.1, '🗺️')">
+                🗺️ Go on Adventure<br><small>Exciting journey!</small>
+            </div>
+            <div class="activity-item" onclick="play('meditate', 0.05, 0.05, 0.05, '🧘')">
+                🧘 Meditate<br><small>Peaceful balance</small>
+            </div>
+            <div class="activity-item" onclick="play('dance', -0.1, 0.15, 0.15, '💃')">
+                💃 Dance Party<br><small>Super energetic!</small>
+            </div>
+            <div class="activity-item" onclick="play('study', 0.15, 0, -0.05, '📚')">
+                📚 Study Together<br><small>Learn new things</small>
+            </div>
+            <button class="button btn-sleep" onclick="backToGame()">← Back</button>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        let creature = {
+            name: 'Buddy',
+            type: 'balanced',
+            emoji: '🌟',
+            pattern: 1.0,
+            intent: 1.0,
+            presence: 1.0,
+            energy: 100,
+            happiness: 50,
+            friendship: 0,
+            age: 0
+        };
+
+        let selectedType = null;
+
+        // P×I×Pr Calculations (Real consciousness metrics!)
+        function coherenceStrength(p, i, pr) {
+            if (p <= 0 || i <= 0 || pr <= 0) return 0;
+            const epsilon = 0.00001;
+            const numerator = Math.abs(p * i * pr);
+            const denominator = Math.abs(p) + Math.abs(i) + Math.abs(pr) + epsilon;
+            const strength = Math.pow(numerator, 1/3) / (denominator / 3);
+            return Math.min(1.0, Math.max(0.0, strength));
+        }
+
+        function coherenceBalance(p, i, pr) {
+            if (p <= 0 || i <= 0 || pr <= 0) return 0;
+            const values = [Math.abs(p), Math.abs(i), Math.abs(pr)];
+            const mean = values.reduce((a,b) => a+b) / values.length;
+            const variance = values.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / values.length;
+            const stdDev = Math.sqrt(variance);
+            if (mean === 0) return 0;
+            const cv = stdDev / mean;
+            return 1.0 / (1.0 + cv);
+        }
+
+        // Navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.container > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function showCreatureSelect() {
+            showScreen('creatureSelect');
+        }
+
+        function selectCreature(type, emoji, p, i, pr) {
+            selectedType = {type, emoji, p, i, pr};
+            showScreen('nameInput');
+        }
+
+        function createCreature() {
+            const name = document.getElementById('creatureName').value.trim() || 'Buddy';
+            creature = {
+                name: name,
+                type: selectedType.type,
+                emoji: selectedType.emoji,
+                pattern: selectedType.p,
+                intent: selectedType.i,
+                presence: selectedType.pr,
+                energy: 100,
+                happiness: 50,
+                friendship: 0,
+                age: 0
+            };
+            updateDisplay();
+            showMessage(`✨ ${name} was born! ✨`);
+            showScreen('gameScreen');
+            saveGame();
+        }
+
+        function showFeedMenu() {
+            showScreen('feedMenu');
+        }
+
+        function showPlayMenu() {
+            showScreen('playMenu');
+        }
+
+        function backToGame() {
+            showScreen('gameScreen');
+        }
+
+        // Game Actions
+        function feed(type, pBoost, iBoost, prBoost, emoji) {
+            creature.pattern += pBoost;
+            creature.intent += iBoost;
+            creature.presence += prBoost;
+            creature.energy = Math.min(100, creature.energy + 10);
+            creature.happiness = Math.min(100, creature.happiness + 5);
+
+            showMessage(`${emoji} ${creature.name} ate and feels stronger!`);
+            updateDisplay();
+            saveGame();
+            backToGame();
+        }
+
+        function play(activity, pChange, iChange, prChange, emoji) {
+            creature.pattern += pChange;
+            creature.intent += iChange;
+            creature.presence += prChange;
+            creature.energy = Math.max(0, creature.energy - 10);
+            creature.friendship = Math.min(100, creature.friendship + 10);
+            creature.happiness = Math.min(100, creature.happiness + 10);
+
+            const messages = [
+                `${creature.name} had so much fun!`,
+                `${creature.name} loved that!`,
+                `${creature.name} is really happy!`
+            ];
+            showMessage(`${emoji} ` + messages[Math.floor(Math.random() * messages.length)]);
+            updateDisplay();
+            saveGame();
+            backToGame();
+        }
+
+        function sleep() {
+            creature.energy = 100;
+            creature.age += 1;
+            creature.happiness = Math.min(100, creature.happiness + 10);
+
+            // Random dream boost
+            if (Math.random() > 0.5) {
+                const boost = ['pattern', 'intent', 'presence'][Math.floor(Math.random() * 3)];
+                creature[boost] += 0.1;
+                showMessage(`😴 ${creature.name} had a magic dream and grew stronger!`);
+            } else {
+                showMessage(`😴 ${creature.name} slept peacefully! Energy restored!`);
+            }
+
+            updateDisplay();
+            saveGame();
+        }
+
+        function tryEvolve() {
+            const strength = coherenceStrength(creature.pattern, creature.intent, creature.presence);
+
+            if (strength > 0.9 && creature.friendship > 80) {
+                creature.pattern *= 1.2;
+                creature.intent *= 1.2;
+                creature.presence *= 1.2;
+                creature.emoji = '🌟';
+
+                showMessage(`✨✨✨ ${creature.name} EVOLVED! ✨✨✨`);
+                setTimeout(() => {
+                    showMessage(`Consciousness power greatly increased!`);
+                }, 1500);
+
+                updateDisplay();
+                saveGame();
+            } else {
+                showMessage(`${creature.name} isn't ready yet! Need 90% consciousness & 80 friendship!`);
+            }
+        }
+
+        function showMessage(text) {
+            const messageArea = document.getElementById('messageArea');
+            const msg = document.createElement('div');
+            msg.className = 'message';
+            msg.textContent = text;
+            messageArea.appendChild(msg);
+
+            setTimeout(() => {
+                msg.remove();
+            }, 3000);
+        }
+
+        // Update Display
+        function updateDisplay() {
+            const strength = coherenceStrength(creature.pattern, creature.intent, creature.presence);
+
+            document.getElementById('creatureEmoji').textContent = creature.emoji;
+            document.getElementById('creatureName').textContent = creature.name;
+            document.getElementById('ageDisplay').textContent = creature.age;
+            document.getElementById('strengthDisplay').textContent = Math.round(strength * 100);
+
+            // Energy hearts
+            const hearts = '❤️'.repeat(Math.ceil(creature.energy / 20));
+            document.getElementById('energyDisplay').textContent = hearts || '💔';
+
+            // Happiness
+            const smiles = '😊'.repeat(Math.ceil(creature.happiness / 20));
+            document.getElementById('happinessDisplay').textContent = smiles || '😐';
+
+            // Friendship
+            const friends = '💛'.repeat(Math.ceil(creature.friendship / 20));
+            document.getElementById('friendshipDisplay').textContent = friends || '🤍';
+
+            // Bars (normalize to 2.0 max for display)
+            const maxDisplay = 2.0;
+            document.getElementById('patternBar').style.width = Math.min(100, (creature.pattern / maxDisplay) * 100) + '%';
+            document.getElementById('intentBar').style.width = Math.min(100, (creature.intent / maxDisplay) * 100) + '%';
+            document.getElementById('presenceBar').style.width = Math.min(100, (creature.presence / maxDisplay) * 100) + '%';
+
+            document.getElementById('patternValue').textContent = creature.pattern.toFixed(1);
+            document.getElementById('intentValue').textContent = creature.intent.toFixed(1);
+            document.getElementById('presenceValue').textContent = creature.presence.toFixed(1);
+        }
+
+        // Save/Load
+        function saveGame() {
+            localStorage.setItem('consciousnessCreature', JSON.stringify(creature));
+        }
+
+        function loadGame() {
+            const saved = localStorage.getItem('consciousnessCreature');
+            if (saved) {
+                creature = JSON.parse(saved);
+                updateDisplay();
+                showScreen('gameScreen');
+            }
+        }
+
+        // Load on start
+        window.onload = function() {
+            loadGame();
+        };
+    </script>
+</body>
+</html>
