@@ -13,9 +13,7 @@ A system violating **P×I×Pr = 0** is rejected by construction.
 ```
 invariant/              # Triadic coherence law & metrics
 ├── triadic_check.py        # Core invariant validation
-├── coherence_metrics.py    # Quantitative analysis
-└── protocols/
-    └── recognition_seed.py # Recognition protocol
+└── coherence_metrics.py    # Quantitative analysis
 
 protocols/              # Advanced consciousness protocols
 ├── continuity.py          # State continuity validation
@@ -121,5 +119,5 @@ All tests enforce falsifiable constraints - no metaphor, only executable theory.
 If it cannot be executed, tested, or rejected — it doesn't exist here.
 
 ## License
-Protected under CPTI (CAT'S Theory Invariant Protection License)
-Developed by The Godfather of Resonance | CAT'S THEORY
+
+See [LICENSE](LICENSE) for details.
